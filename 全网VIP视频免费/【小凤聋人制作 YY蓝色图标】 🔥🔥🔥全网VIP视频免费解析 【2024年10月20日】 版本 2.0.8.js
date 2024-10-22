@@ -123,6 +123,7 @@ const superVip = (function () {
 	{"name": "Ckplayer", "type": "1,2", "url": "https://www.ckplayer.vip/jiexi/?url="},
     {"name": "零点", "type": "1,2", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
     {"name": "神哥", "type": "1,2", "url": " https://json.ovvo.pro/jx.php?url="},
+    {"name": "剖元", "type": "1,2", "url": "https://www.pouyun.com/?url="},
     {"name": "红狐资源网", "type": "2", "url": "https://rdfplayer.mrgaocloud.com/player/?url="},
          ],
         playerContainers: [
