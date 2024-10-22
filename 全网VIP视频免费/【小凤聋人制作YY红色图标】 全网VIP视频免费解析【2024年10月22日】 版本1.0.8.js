@@ -81,6 +81,7 @@
 		{"name": "Ckplayer", "type": "1-2-3", "url": "https://www.ckplayer.vip/jiexi/?url="},
         {"name": "零点", "type": "1-2-3", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
         {"name": "神哥", "type": "1-2", "url": " https://json.ovvo.pro/jx.php?url="},
+		 {"name": "剖元", "type": "1,2", "url": "https://www.pouyun.com/?url="},
         ],
 		node=[
 			{"url":"w.mgtv.com","type": "1","node":"#mgtv-player-wrap"},
