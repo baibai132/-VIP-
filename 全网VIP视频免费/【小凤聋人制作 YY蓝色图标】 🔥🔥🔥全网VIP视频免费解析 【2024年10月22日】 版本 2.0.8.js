@@ -122,7 +122,9 @@ const superVip = (function () {
 	{"name": "云析", "type": "1,2", "url": "https://jx.yparse.com/index.php?url="},
 	{"name": "Ckplayer", "type": "1,2", "url": "https://www.ckplayer.vip/jiexi/?url="},
     {"name": "零点", "type": "1,2", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
-    {"name": "神哥", "type": "1,2", "url": " https://json.ovvo.pro/jx.php?url="},
+    {"name": "神哥", "type": "1,2", "url": "https://json.ovvo.pro/jx.php?url="},
+    {"name": "剖元", "type": "1,2", "url": "https://www.pouyun.com/?url="},
+		
          ],
         playerContainers: [
             {
