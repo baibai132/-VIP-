@@ -29,7 +29,9 @@
 // @charset		      UTF-8
 // @license           GPL License
 // ==/UserScript==
+
 const util = (function () {
+
     function findTargetElement(targetContainer) {
         const body = window.document;
         let tabContainer;
@@ -42,6 +44,7 @@ const util = (function () {
                     startTimestamp = timestamp;
                 }
                 const elapsedTime = timestamp - startTimestamp;
+
                 if (elapsedTime >= 500) {
                     GM_log("查找元素：" + targetContainer + "，第" + tryTime + "次");
                     tabContainer = body.querySelector(targetContainer);
@@ -57,9 +60,11 @@ const util = (function () {
                     requestAnimationFrame(tryFindElement);
                 }
             }
+
             requestAnimationFrame(tryFindElement);
         });
     }
+
     function urlChangeReload() {
         const oldHref = window.location.href;
         let interval = setInterval(() => {
@@ -70,6 +75,7 @@ const util = (function () {
             }
         }, 500);
     }
+
     function reomveVideo() {
         setInterval(() => {
             for (let video of document.getElementsByTagName("video")) {
@@ -82,6 +88,7 @@ const util = (function () {
             }
         }, 500);
     }
+
     function syncRequest(option) {
         return new Promise((resolve, reject) => {
             option.onload = (res) => {
@@ -93,6 +100,7 @@ const util = (function () {
             GM_xmlhttpRequest(option);
         });
     }
+
     return {
         req: (option) => syncRequest(option),
         findTargetEle: (targetEle) => findTargetElement(targetEle),
@@ -100,7 +108,10 @@ const util = (function () {
         reomveVideo: () => reomveVideo()
     }
 })();
+
+
 const superVip = (function () {
+
     const _CONFIG_ = {
         isMobile: navigator.userAgent.match(/(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini)/i),
         currentPlayerNode: null,
@@ -109,23 +120,23 @@ const superVip = (function () {
         autoPlayerKey: "auto_player_key" + window.location.host,
         autoPlayerVal: "auto_player_value_" + window.location.host,
         videoParseList: [
-	{"name": "虾米", "type": "1,2", "url": "https://jx.xmflv.com/?url="},
-	{"name": "虾米2", "type": "1,2", "url": "https://jx.xmflv.cc/?url="},
-	{"name": "夜幕", "type": "1,2", "url": "https://www.yemu.xyz/?url="},
-    {"name": "CK", "type": "1,2", "url": "https://www.ckplayer.vip/jiexi/?url="},
-	{"name": "qianqi", "type": "1,2", "url": "https://api.qianqi.net/vip/?url="},
-	{"name":"8090","type": "1,2","url":"https://www.8090g.cn/?url="},
-	{"name": "纯净1", "type": "1,2", "url": "https://im1907.top/?jx="},
-	{"name": "IK9", "type": "1,2", "url": "https://yparse.ik9.cc/index.php?url="},
-	{"name": "PM", "type": "1,2", "url": "https://www.playm3u8.cn/jiexi.php?url="},
-	{"name": "七哥", "type": "1,2", "url": "https://jx.nnxv.cn/tv.php?url="},
-	{"name": "云析", "type": "1,2", "url": "https://jx.yparse.com/index.php?url="},
-	{"name": "Ckplayer", "type": "1,2", "url": "https://www.ckplayer.vip/jiexi/?url="},
-    {"name": "零点", "type": "1,2", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
-    {"name": "神哥", "type": "1,2", "url": "https://json.ovvo.pro/jx.php?url="},
-    {"name": "剖元", "type": "1,2", "url": "https://www.pouyun.com/?url="},
-		
-         ],
+	{"name": "虾米", "type": "1,,3", "url": "https://jx.xmflv.com/?url="},
+	{"name": "虾米2", "type": "1,,3", "url": "https://jx.xmflv.cc/?url="},
+	{"name": "夜幕", "type": "1,,3", "url": "https://www.yemu.xyz/?url="},
+    {"name": "CK", "type": "1,,3", "url": "https://www.ckplayer.vip/jiexi/?url="},
+	{"name": "qianqi", "type": "1,,3", "url": "https://api.qianqi.net/vip/?url="},
+	{"name":"8090","type": "1,,3","url":"https://www.8090g.cn/?url="},
+	{"name": "纯净1", "type": "2,3", "url": "https://im1907.top/?jx="},
+	{"name": "IK9", "type": "1,3", "url": "https://yparse.ik9.cc/index.php?url="},
+	{"name": "PM", "type": "1,3", "url": "https://www.playm3u8.cn/jiexi.php?url="},
+	{"name": "七哥", "type": "1,3", "url": "https://jx.nnxv.cn/tv.php?url="},
+	{"name": "云析", "type": "1,3", "url": "https://jx.yparse.com/index.php?url="},
+	{"name": "Ckplayer", "type": "1,3", "url": "https://www.ckplayer.vip/jiexi/?url="},
+    {"name": "零点", "type": "1,3", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
+    {"name": "神哥", "type": "1,3", "url": " https://json.ovvo.pro/jx.php?url="},
+    {"name": "剖元", "type": "3", "url": "https://www.pouyun.com/?url="},
+    {"name": "红狐资源网", "type": "3", "url": "https://rdfplayer.mrgaocloud.com/player/?url="},
+        ],
         playerContainers: [
             {
                 host: "v.qq.com",
@@ -139,6 +150,7 @@ const superVip = (function () {
                 name: "Default",
                 displayNodes: [".mod_vip_popup", "[class^=app_],[class^=app-],[class*=_app_],[class*=-app-],[class$=_app],[class$=-app]", "div[dt-eid=open_app_bottom]", "div.video_function.video_function_new", "a[open-app]", "section.mod_source", "section.mod_box.mod_sideslip_h.mod_multi_figures_h,section.mod_sideslip_privileges,section.mod_game_rec", ".at-app-banner"]
             },
+
             {host: "w.mgtv.com", container: "#mgtv-player-wrap", name: "Default", displayNodes: []},
             {host: "www.mgtv.com", container: "#mgtv-player-wrap", name: "Default", displayNodes: []},
             {
@@ -176,6 +188,7 @@ const superVip = (function () {
             {host: "www.1905.com", container: "#player,#vodPlayer", name: "Default", displayNodes: []},
         ]
     };
+
     class BaseConsumer {
         constructor() {
             this.parse = () => {
@@ -187,6 +200,7 @@ const superVip = (function () {
                     .then((container) => this.postHandle(container));
             }
         }
+
         preHandle(container) {
             _CONFIG_.currentPlayerNode.displayNodes.forEach((item, index) => {
                 util.findTargetEle(item)
@@ -195,12 +209,13 @@ const superVip = (function () {
             });
             return new Promise((resolve, reject) => resolve(container));
         }
+
         generateElement(container) {
             GM_addStyle(`
                         #${_CONFIG_.vipBoxId} {cursor:pointer; position:fixed; top:120px; left:0px; z-index:9999999; text-align:left;}
                         #${_CONFIG_.vipBoxId} .img_box{width:32px; height:32px;line-height:32px;text-align:center;background-color:#1c84c6;margin:10px 0px;}
                         #${_CONFIG_.vipBoxId} .vip_list {display:none; position:absolute; border-radius:5px; left:32px; top:0; text-align:center; background-color: #3f4149; border:1px solid white;padding:10px 0px; width:380px; max-height:400px; overflow-y:auto;}
-                        #${_CONFIG_.vipBoxId} .vip_list li{border-radius:2px; font-size:14px; color:#DCDCDC; text-align:center; width:calc(25% - 14px); line-height:21px; float:left; border:1px solid gray; padding:0 4px; margin:4px 2px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;}
+                        #${_CONFIG_.vipBoxId} .vip_list li{border-radius:2px; font-size:12px; color:#DCDCDC; text-align:center; width:calc(25% - 14px); line-height:21px; float:left; border:1px solid gray; padding:0 4px; margin:4px 2px;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;-o-text-overflow:ellipsis;}
                         #${_CONFIG_.vipBoxId} .vip_list li:hover{color:#1c84c6; border:1px solid #1c84c6;}
                         #${_CONFIG_.vipBoxId} .vip_list ul{padding-left: 10px;}
                         #${_CONFIG_.vipBoxId} .vip_list::-webkit-scrollbar{width:5px; height:1px;}
@@ -208,12 +223,14 @@ const superVip = (function () {
                         #${_CONFIG_.vipBoxId} .vip_list::-webkit-scrollbar-track{box-shadow:inset 0 0 5px rgba(0, 0, 0, 0.2); background:#F1F1F1;}
                         #${_CONFIG_.vipBoxId} li.selected{color:#1c84c6; border:1px solid #1c84c6;}
 						`);
+
             if (_CONFIG_.isMobile) {
                 GM_addStyle(`
                     #${_CONFIG_.vipBoxId} {top:300px;}
                     #${_CONFIG_.vipBoxId} .vip_list {width:300px;}
                     `);
             }
+
             let type_1_str = "";
             let type_2_str = "";
             let type_3_str = "";
@@ -224,8 +241,13 @@ const superVip = (function () {
                 if (item.type.includes("2")) {
                     type_2_str += `<li class="tc-li" title="${item.name}" data-index="${index}">${item.name}</li>`;
                 }
+                if (item.type.includes("3")) {
+                    type_3_str += `<li class="tc-li" title="${item.name}" data-index="${index}">${item.name}</li>`;
+                }
             });
+
             let autoPlay = !!GM_getValue(_CONFIG_.autoPlayerKey, null) ? "开" : "关";
+
             $(container).append(`
                 <div id="${_CONFIG_.vipBoxId}">
                    <div class="vip_icon">
@@ -246,6 +268,13 @@ const superVip = (function () {
                                     <div style="clear:both;"></div>
                                 </ul>
                             </div>
+                            <div>
+                                <h3 style="color:#1c84c6; font-weight: bold; font-size: 16px; padding:5px 0px;">[弹窗播放不带选集]</h3>
+                                <ul>
+                                    ${type_3_str}
+                                    <div style="clear:both;"></div>
+                                </ul>
+                            </div>
                             <div style="text-align:left;color:#FFF;font-size:10px;padding:0px 10px;margin-top:10px;">
                                 <b>自动解析功能说明：</b>
                                 <br>&nbsp;&nbsp;1、自动解析功能默认关闭（自动解析只支持内嵌播放源）
@@ -259,6 +288,7 @@ const superVip = (function () {
                 </div>`);
             return new Promise((resolve, reject) => resolve(container));
         }
+
         bindEvent(container) {
             const vipBox = $(`#${_CONFIG_.vipBoxId}`);
             if (_CONFIG_.isMobile) {
@@ -267,6 +297,7 @@ const superVip = (function () {
                 vipBox.find(".vip_icon").on("mouseover", () => vipBox.find(".vip_list").show());
                 vipBox.find(".vip_icon").on("mouseout", () => vipBox.find(".vip_list").hide());
             }
+
             let _this = this;
             vipBox.find(".vip_list .nq-li").each((liIndex, item) => {
                 item.addEventListener("click", () => {
@@ -286,6 +317,7 @@ const superVip = (function () {
                     GM_openInTab(url, {active: true, insert: true, setParent: true});
                 });
             });
+
             //右键移动位置
             vipBox.mousedown(function (e) {
                 if (e.which !== 3) {
@@ -296,16 +328,19 @@ const superVip = (function () {
                 const positionDiv = $(this).offset();
                 let distenceX = e.pageX - positionDiv.left;
                 let distenceY = e.pageY - positionDiv.top;
+
                 $(document).mousemove(function (e) {
                     let x = e.pageX - distenceX;
                     let y = e.pageY - distenceY;
                     const windowWidth = $(window).width();
                     const windowHeight = $(window).height();
+
                     if (x < 0) {
                         x = 0;
                     } else if (x > windowWidth - vipBox.outerWidth(true) - 100) {
                         x = windowWidth - vipBox.outerWidth(true) - 100;
                     }
+
                     if (y < 0) {
                         y = 0;
                     } else if (y > windowHeight - vipBox.outerHeight(true)) {
@@ -324,6 +359,7 @@ const superVip = (function () {
             });
             return new Promise((resolve, reject) => resolve(container));
         }
+
         autoPlay(container) {
             const vipBox = $(`#${_CONFIG_.vipBoxId}`);
             vipBox.find("#vip_auto").on("click", function () {
@@ -339,11 +375,13 @@ const superVip = (function () {
                     window.location.reload();
                 }, 200);
             });
+
             if (!!GM_getValue(_CONFIG_.autoPlayerKey, null)) {
                 this.selectPlayer(container);
             }
             return new Promise((resolve, reject) => resolve(container));
         }
+
         selectPlayer(container) {
             let index = GM_getValue(_CONFIG_.autoPlayerVal, 2);
             let autoObj = _CONFIG_.videoParseList[index];
@@ -357,6 +395,7 @@ const superVip = (function () {
                 }, 2500);
             }
         }
+
         showPlayerWindow(videoObj) {
             util.findTargetEle(_CONFIG_.currentPlayerNode.container)
                 .then((container) => {
@@ -377,6 +416,7 @@ const superVip = (function () {
                     }
                 });
         }
+
         postHandle(container) {
             if (!!GM_getValue(_CONFIG_.autoPlayerKey, null)) {
                 util.urlChangeReload();
@@ -394,9 +434,12 @@ const superVip = (function () {
                 }, 1000);
             }
         }
+
     }
+
     class DefaultConsumer extends BaseConsumer {
     }
+
     return {
         start: () => {
             GM_setValue(_CONFIG_.flag, null);
@@ -412,13 +455,9 @@ const superVip = (function () {
             targetConsumer.parse();
         }
     }
+
 })();
 
 (function () {
     superVip.start();
 })();
-
-
-
-
-
