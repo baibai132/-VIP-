@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name              【小凤聋人制作 YY蓝色图标】 🔥🔥🔥全网VIP视频免费破解，自动跳过广告🔥🔥🔥
 // @namespace      http://tampermonkey.net/
-// @version           更新：【2024年10月22日】 版本 2.0.8
+// @version           更新：【2024年10月20日】 版本 2.0.8
 //@icon         https://qlogo2.store.qq.com/qzone/157903109/157903109/50?1663513516
 // @description       全网VIP视频免费看 支持：腾讯、爱奇艺、优酷、芒果、Bilibili、pptv、乐视等其它网站；
 // @match             *://*.youku.com/*
@@ -135,7 +135,6 @@ const superVip = (function () {
     {"name": "零点", "type": "1,3", "url": "http://www.jzmhtt.com/zdy/vip/?url="},
     {"name": "神哥", "type": "1,3", "url": " https://json.ovvo.pro/jx.php?url="},
     {"name": "剖元", "type": "3", "url": "https://www.pouyun.com/?url="},
-    {"name": "红狐资源网", "type": "3", "url": "https://rdfplayer.mrgaocloud.com/player/?url="},
         ],
         playerContainers: [
             {
